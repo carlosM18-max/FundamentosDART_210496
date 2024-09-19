@@ -10,7 +10,8 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |--|--|--|--|
 |1|Metodologia de Evaluacion de la Asignatura|1|Finalizada|
 |2|Instalacion y Configuracion del Entorno de Desarrollo de Flutter/Dart|23|Activa|
-|3|Hola Mundo desde DART|Por definir|Activa|
+|3|Hola Mundo desde DART|10|Finalizada|
+|4|Tipos de Datos en DART|5|Activa|
 
 
 ### Lista de herramientas
