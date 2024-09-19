@@ -9,10 +9,11 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |No.|Nombre|Potenciador|Estatus|
 |--|--|--|--|
 |1|Metodologia de Evaluacion de la Asignatura|1|Finalizada|
-|2|Instalacion y Configuracion del Entorno de Desarrollo de Flutter/Dart|23|Activa|
+|2|Instalacion y Configuracion del Entorno de Desarrollo de Flutter/Dart|23|Finalizada|
 |3|Hola Mundo desde DART|10|Finalizada|
 |4|Tipos de Datos en DART|5|Finalizada|
-|5|Tipos de Datos Dinamicos en DART|5|Activa|
+|5|Tipos de Datos Dinamicos|5|Finalizada|
+|6|Mapas|6|Finalizada|
 
 
 ### Lista de herramientas
