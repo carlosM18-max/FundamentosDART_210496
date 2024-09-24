@@ -46,6 +46,7 @@ void main() {
   Costo del carrito de compras: ${calculaCosto(cantidadProduct,precioProduct,descuento)}
   """);
   // Las funciones lambda en DART solo pueden llevar una sola instruccion, si llevan mas de una instruccion ya no es lambda
+  // Prueba
 }
 
 // funciones y parametros
