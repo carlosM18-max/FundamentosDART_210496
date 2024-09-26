@@ -15,6 +15,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |5|Tipos de Datos Dinamicos|5|Finalizada|
 |6|Mapas|6|Finalizada|
 |7|Listas,Iterables y Conjuntos de Datos|9|Finalizada|
+|8|Funciones|11|Finalizada|
 
 
 ### Lista de herramientas
