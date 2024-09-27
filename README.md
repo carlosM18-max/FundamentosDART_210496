@@ -16,6 +16,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |6|Mapas|6|Finalizada|
 |7|Listas,Iterables y Conjuntos de Datos|9|Finalizada|
 |8|Funciones|11|Finalizada|
+|9|Clases|9|Finalizada|
 
 
 ### Lista de herramientas
