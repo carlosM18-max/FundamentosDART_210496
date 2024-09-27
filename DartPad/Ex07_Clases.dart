@@ -46,4 +46,9 @@ class Team{
     String type;
     // El constructor de la clase siempre debe llevar el mismo nombre de la misma
     Team({required this.name, this.type="No definido"});
+  
+  @override
+  String toString(){
+    return 'Grupo: $name, Tipo: $type';
+  }
 }
