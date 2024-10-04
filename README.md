@@ -17,8 +17,9 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |7|Listas,Iterables y Conjuntos de Datos|9|Finalizada|
 |8|Funciones|11|Finalizada|
 |9|Clases|9|Finalizada|
-|10|Constructores Nombrados|8|Activa|
-|11|Getters (Lectura Controlada) y Setters (Modificacion Controlada)|9|Activa|
+|10|Constructores Nombrados|8|Finalizada|
+|11|Getters (Lectura Controlada) y Setters (Modificacion Controlada)|9|Finalizada|
+|12|Clases Abstractas|8|Finalizada|
 
 
 ### Lista de herramientas
