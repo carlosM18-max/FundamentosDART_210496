@@ -1,207 +1,311 @@
 void main() {
-  // Caso de Prueba 1
-  final carlosMArtin = Paciente(
+  // 8. Caso de Prueba 1: Nuevo paciente registrado hoy
+  final pacienteManager = AdministradorPacientes();
+
+  final carlosMartin = Paciente(
     id: 1,
-    name: "Carlos Martin",
-    firstLastName: "Hernandez",
-    secondLastName: "de Jesus",
-    gender: "Masculino",
-    bloodGroup: "O+",
-    curp: "HEJC031226HPLRSRA1",
+    firstName: "Carlos Martin",
+    lastName: "Hernandez",
+    lastSecondName: "de Jesus",
+    gender: Gender.Masculino,
+    bloodType: BloodType.OP,
+    curp: "HEJC031226HPÑRSRA1",
     birthDate: DateTime(2003, 12, 26),
-    lifeStatus: "Vivo",
-    medicalStatus: "Estable",
-    nss: "7864531286",
-    insuranceType: "IMSS",
-    lastAppointmentDate: DateTime.now(),
+    lifeStatus: LifeStatus.Vivo,
+    medicalCondition: "Estable",
+    nss: "789645gf64d98",
+    insuranceType: InsuranceType.IMSS,
+    lastDate: DateTime.now(),
+    registrationDate: DateTime.now(),
   );
 
-  print(carlosMArtin);
+  pacienteManager.registrarPaciente(carlosMartin);
 
-  // Caso de Prueba 2
-  final marthaFlores = Paciente(
+  // 9. Caso de Prueba 2: Paciente que alguna vez fue trabajador del hospital
+  final juanPerez = Paciente(
     id: 2,
-    name: "Martha",
-    firstLastName: "Flores",
-    gender: "Femenino",
-    bloodGroup: "O-",
-    curp: "MFL012448644DS",
-    birthDate: DateTime(2008, 1, 8),
-    lifeStatus: "Vivo",
-    medicalStatus: "Ex-trabajadora",
-    nss: "7846513268",
-    insuranceType: "ISSSTE",
-    lastAppointmentDate: DateTime.now(),
-    registrationDate: DateTime.now().subtract(Duration(days: 30)),
+    firstName: "Juan",
+    lastName: "Perez",
+    gender: Gender.Masculino,
+    bloodType: BloodType.OP,
+    curp: "JPCD0325ASFSFFDGS",
+    birthDate: DateTime(2004, 08, 15),
+    lifeStatus: LifeStatus.Vivo,
+    medicalCondition: "En Observación",
+    nss: "13gds84gd68s4g8",
+    insuranceType: InsuranceType.IMSS,
+    lastDate: DateTime.now(),
+    registrationDate: DateTime.now().subtract(Duration(days: 60)),
   );
 
-  print(marthaFlores);
+  pacienteManager.registrarPaciente(juanPerez);
 
-  // Caso de Prueba 3
-  final juanTorrez = Paciente(
+  // 10. Caso de Prueba 3: Paciente que acaba de fallecer
+  final fernandaTorrez = Paciente(
     id: 3,
-    name: "Juan",
-    firstLastName: "Torrez",
-    secondLastName: "Ramirez",
-    gender: "Masculino",
-    bloodGroup: "AB+",
-    curp: "JRT032A6S79645D",
+    firstName: "Fernanda",
+    lastName: "Torrez",
+    lastSecondName: "Aguilar",
+    gender: Gender.Femenino,
+    bloodType: BloodType.BN,
+    curp: "TRAF451010MDFRGD05",
     birthDate: DateTime(1945, 10, 10),
-    lifeStatus: "Vivo", 
-    medicalStatus: "Estable",
-    nss: "2316879465",
-    insuranceType: "Seguro Popular",
-    lastAppointmentDate: DateTime.now(),
+    lifeStatus: LifeStatus.Vivo,
+    medicalCondition: "Crítico",
+    nss: "515f34ds8f65gd",
+    insuranceType: InsuranceType.SeguroPopular,
+    lastDate: DateTime.now(),
     registrationDate: DateTime.now().subtract(Duration(days: 90)),
   );
 
-  // Actualizar el estado a inactivo debido al fallecimiento
-    juanTorrez.registerDeath(reason: "Infarto", time: DateTime.now());
+  // Actualizar estatus a fallecido
+  fernandaTorrez.registrarDefuncion(
+    causa: "Paro Cardiaco",
+    horaDefuncion: DateTime.now(),
+  );
 
-  print(juanTorrez);
+  pacienteManager.registrarPaciente(fernandaTorrez);
+
+  // Mostrar pacientes
+  pacienteManager.mostrarPacientes();
+
+  // Actualizar paciente
+  carlosMartin.medicalCondition = "En Recuperación";
+  pacienteManager.modificarPaciente(carlosMartin);
+
+  // Mostrar pacientes después de la actualización
+  pacienteManager.mostrarPacientes();
+
+  // Eliminar paciente
+  pacienteManager.eliminarPaciente(carlosMartin.id);
+
+  // Mostrar pacientes después de la eliminación
+  pacienteManager.mostrarPacientes();
 }
 
-// 1.- Definición de la Clase Abstracta <Persona>
-abstract class Person {
+// estatus de vida
+enum LifeStatus {
+  Vivo,
+  Finado
+}
+
+// tipo de seguro
+enum InsuranceType {
+  IMSS,
+  ISSSTE,
+  SeguroPopular
+}
+
+// grupo sanguíneo
+enum BloodType {
+  OP,
+  ON,
+  AP,
+  AN,
+  BP,
+  BN,
+  ABP,
+  ABN
+}
+
+// Enum para el género
+enum Gender { Masculino, Femenino }
+
+// 1.- Definición de la clase Abstracta
+abstract class Persona {
   int id;
-  String name;
-  String firstLastName;
-  String? secondLastName;
-  String gender;
-  String bloodGroup;
+  String firstName;
+  String lastName;
+  String? lastSecondName;
+  Gender gender;
+  BloodType bloodType;
   String? curp;
   DateTime birthDate;
   bool isActive;
   DateTime registrationDate;
-  DateTime? updateDate;
+  DateTime? lastUpdate;
 
-  // 3.- Declaración de las Propiedades de la Clase <Paciente>
-  Person({
+  // 2.- Definición de la Función de la Clase
+  Persona({
     required this.id,
-    required this.name,
-    required this.firstLastName,
-    this.secondLastName,
+    required this.firstName,
+    required this.lastName,
+    this.lastSecondName,
     required this.gender,
-    required this.bloodGroup,
+    required this.bloodType,
     this.curp,
     required this.birthDate,
-    this.isActive = true, 
+    this.isActive = true,
     DateTime? registrationDate,
-    this.updateDate,
+    this.lastUpdate,
   }) : registrationDate = registrationDate ?? DateTime.now();
 
-  // 2.- Definición de la Función de la  Clase
-  @override
-  String toString() {
-    String formatBirthDate = "${birthDate.day.toString().padLeft(2, '0')}/" +
+  // Método modificado
+  String detallesPersona() {
+    String formattedBirthDate = "${birthDate.day.toString().padLeft(2, '0')}/" +
         "${birthDate.month.toString().padLeft(2, '0')}/${birthDate.year}";
 
-    String formatRegistrationDate = "${registrationDate.day.toString().padLeft(2, '0')}/" +
+    String formattedRegistrationDate = "${registrationDate.day.toString().padLeft(2, '0')}/" +
         "${registrationDate.month.toString().padLeft(2, '0')}/${registrationDate.year} " +
         "${registrationDate.hour.toString().padLeft(2, '0')}:" +
         "${registrationDate.minute.toString().padLeft(2, '0')}:" +
         "${registrationDate.second.toString().padLeft(2, '0')}";
 
-    curp ??= "No registrado"; // Si no hay CURP
-    // Si esta activo o inactivo
-    String statusString = isActive ? "Activo" : "Inactivo";
+    curp ??= "No Registrado";
+    if (curp == "") curp = "No Registrado";
+
+    String status = isActive ? "Activo" : "Inactivo";
 
     return """
-      -----------------------------------
-      Datos de la persona
-      -----------------------------------
+      Detalles de la Persona
+      ---------------------------------
       ID: $id,
-      Nombre: $name $firstLastName ${secondLastName ?? ""}
-      Género: $gender
-      Grupo sanguíneo: $bloodGroup
-      Fecha de nacimiento: $formatBirthDate
-      CURP: $curp
-      Estatus: $statusString
-      Fecha de registro: $formatRegistrationDate
-      -----------------------------------
+      Nombre: $firstName $lastName ${lastSecondName ?? ""}
+      Género: ${gender.name}
+      Tipo de Sangre: ${bloodType.name}
+      Fecha de Nacimiento: $formattedBirthDate
+      Curp: $curp
+      Estatus: $status
+      Fecha Registro:  $formattedRegistrationDate
+      ---------------------------------
       """;
   }
 }
 
-// Uso de Extends /Implements:
-class Paciente extends Person {
+// Establecer un contrato que cualquier clase que desee registrar defunciones debe seguir
+abstract class RegistroDefuncion {
+  void registrarDefuncion({required String causa, required DateTime horaDefuncion});
+}
+
+// 3.- Declaración de las Propiedades de la Clase <Paciente>
+// 7.- Uso de Extends / Implements
+class Paciente extends Persona implements RegistroDefuncion {
   String nss;
-  String insuranceType;
-  String lifeStatus; // Activo o Finado
-  String medicalStatus; // Estado del paciente
-  DateTime lastAppointmentDate;
+  InsuranceType insuranceType;
+  LifeStatus lifeStatus;
+  String medicalCondition;
+  DateTime lastDate;
+  DateTime? dischargeDate;
+  DateTime? timeOfDeath;
+  String? causeOfDeath;
 
-  // Atributos relacionados a defunción
-  DateTime? deathTime;
-  String? deathReason;
-
+  // 4.- Sobreescritura de las Propiedades de la clase Abstracta <Persona>
   Paciente({
     required int id,
-    required String name,
-    required String firstLastName,
-    String? secondLastName,
-    required String gender,
-    required String bloodGroup,
+    required String firstName,
+    required String lastName,
+    String? lastSecondName,
+    required Gender gender,
+    required BloodType bloodType,
     String? curp,
     required DateTime birthDate,
     bool isActive = true,
     DateTime? registrationDate,
-    DateTime? updateDate,
+    DateTime? lastUpdate,
     required this.nss,
     required this.insuranceType,
     required this.lifeStatus,
-    required this.medicalStatus,
-    required this.lastAppointmentDate,
+    required this.medicalCondition,
+    required this.lastDate,
+    this.dischargeDate,
   }) : super(
-          id: id,
-          name: name,
-          firstLastName: firstLastName,
-          secondLastName: secondLastName,
-          gender: gender,
-          bloodGroup: bloodGroup,
-          curp: curp,
-          birthDate: birthDate,
-          isActive: isActive,
-          registrationDate: registrationDate,
-          updateDate: updateDate,
-        );
+            id: id,
+            firstName: firstName,
+            lastName: lastName,
+            lastSecondName: lastSecondName,
+            gender: gender,
+            bloodType: bloodType,
+            curp: curp,
+            birthDate: birthDate,
+            isActive: isActive,
+            registrationDate: registrationDate,
+            lastUpdate: lastUpdate,
+          );
 
-  // 7.- Sobreescritura de la Función registrarDefuncion()
-  void registerDeath({required String reason, required DateTime time}) {
-    if (lifeStatus.toLowerCase() == 'Finado') {
-      print("Error: El paciente ya está registrado como Finado.");
-      return;
-    }
-
-    // Actualización del estado
-    lifeStatus = 'Finado';
-    isActive = false; // Cambia el estado a inactivo
-    deathTime = time;
-    deathReason = reason;
-    updateDate = DateTime.now(); // Registra la nueva fecha
+  // 6.- Sobreescritura de la Función registrar Defunción()
+  @override
+  void registrarDefuncion({required String causa, required DateTime horaDefuncion}) {
+    lifeStatus = LifeStatus.Finado;
+    isActive = false;
+    this.timeOfDeath = horaDefuncion;
+    causeOfDeath = causa;
+    lastUpdate = DateTime.now();
   }
 
-  // Sobreescritura del método toString() para incluir los detalles del paciente
   @override
   String toString() {
-    String result = super.toString() +
+    String result = detallesPersona() +
         """
-      NSS: $nss
-      Tipo de seguro: $insuranceType
-      Estatus de vida: $lifeStatus
-      Estado médico: $medicalStatus
-      Fecha de la última cita: ${lastAppointmentDate.day}/${lastAppointmentDate.month}/${lastAppointmentDate.year}
-      """;
+  NSS: $nss
+  Tipo de Seguro: ${insuranceType.name} 
+  Estatus de Vida: ${lifeStatus.name} 
+  Estado Médico: $medicalCondition
+        """;
 
-    // Detalles de la defunción
-    if (lifeStatus == 'Finado') {
-      result += """
-      Motivo de defunción: ${deathReason ?? "No especificado"}
-      Hora de defunción: ${deathTime != null ? "${deathTime!.hour}:${deathTime!.minute}" : "No especificada"}
-      """;
+    if (dischargeDate != null) {
+      result += "Fecha de Alta: ${dischargeDate!.day.toString().padLeft(2, '0')}/" +
+          "${dischargeDate!.month.toString().padLeft(2, '0')}/${dischargeDate!.year} " +
+          "${dischargeDate!.hour.toString().padLeft(2, '0')}:" +
+          "${dischargeDate!.minute.toString().padLeft(2, '0')}:${dischargeDate!.second.toString().padLeft(2, '0')}\n";
     }
 
-    result += "-----------------------------------\n";
+    result += "Fecha de la Última Cita: ${lastDate.day.toString().padLeft(2, '0')}/" +
+        "${lastDate.month.toString().padLeft(2, '0')}/${lastDate.year} " +
+        "${lastDate.hour.toString().padLeft(2, '0')}:" +
+        "${lastDate.minute.toString().padLeft(2, '0')}:${lastDate.second.toString().padLeft(2, '0')}\n";
+
+    if (lifeStatus == LifeStatus.Finado) {
+      String formattedLastUpdate = "${lastUpdate!.day.toString().padLeft(2, '0')}/" +
+          "${lastUpdate!.month.toString().padLeft(2, '0')}/${lastUpdate!.year} " +
+          "${lastUpdate!.hour.toString().padLeft(2, '0')}:" +
+          "${lastUpdate!.minute.toString().padLeft(2, '0')}:" +
+          "${lastUpdate!.second.toString().padLeft(2, '0')}";
+
+      result += "Fecha de Defunción: ${timeOfDeath!.day.toString().padLeft(2, '0')}/" +
+          "${timeOfDeath!.month.toString().padLeft(2, '0')}/${timeOfDeath!.year} " +
+          "${timeOfDeath!.hour.toString().padLeft(2, '0')}:" +
+          "${timeOfDeath!.minute.toString().padLeft(2, '0')}:" +
+          "${timeOfDeath!.second.toString().padLeft(2, '0')}\n" +
+          "Causa de la Defunción: $causeOfDeath\n" +
+          "Última Actualización: $formattedLastUpdate\n";
+    }
+
     return result;
+  }
+}
+
+// 5.- Métodos CRUD de la Clase
+class AdministradorPacientes {
+  final List<Paciente> _pacientes = [];
+
+  void registrarPaciente(Paciente paciente) {
+    _pacientes.add(paciente);
+    print("Paciente registrado: ${paciente.firstName} ${paciente.lastName}");
+  }
+
+  void modificarPaciente(Paciente pacienteModificado) {
+    final index = _pacientes.indexWhere((p) => p.id == pacienteModificado.id);
+    if (index != -1) {
+      _pacientes[index] = pacienteModificado;
+      print("Paciente modificado: ${pacienteModificado.firstName} ${pacienteModificado.lastName}");
+    } else {
+      print("Paciente no encontrado.");
+    }
+  }
+
+  void eliminarPaciente(int id) {
+    _pacientes.removeWhere((paciente) => paciente.id == id);
+    print("Paciente eliminado con ID: $id");
+  }
+
+  void mostrarPacientes() {
+    if (_pacientes.isEmpty) {
+      print("No hay pacientes registrados.");
+    } else {
+      print("Pacientes registrados:");
+      for (var paciente in _pacientes) {
+        print(paciente);
+      }
+    }
   }
 }
