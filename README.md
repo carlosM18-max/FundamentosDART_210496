@@ -27,6 +27,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |16|Async - Await|5|Activa|
 |17|Try, Catch y Finally|6|Activa|
 |18|Streams|6|Activa|
+|19|Streams y Await|4|Activa|
 
 
 ### Lista de herramientas
