@@ -25,6 +25,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |14|Mixins|9|Finalizada|
 |15|Futures|5|Activa|
 |16|Async - Await|5|Activa|
+|17|Try, Catch y Finally|6|Activa|
 
 
 ### Lista de herramientas
