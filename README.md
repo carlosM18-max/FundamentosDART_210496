@@ -24,6 +24,7 @@ por el M.T.I. Marco A. Ramirez Hernandez
 |13|Aserciones|3|Finalizada|
 |14|Mixins|9|Finalizada|
 |15|Futures|5|Activa|
+|16|Async - Await|5|Activa|
 
 
 ### Lista de herramientas
